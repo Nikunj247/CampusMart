@@ -4,18 +4,15 @@ const sendEmail = async (options) => {
   // --- EXPLICIT SMTP CONFIGURATION FOR RENDER ---
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port: 587,             // Changed from 465 to Render-friendly 587
+    secure: false,         // Must be false for port 587
+    requireTLS: true,      // Forces secure encryption even on port 587
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-    // --- THE FIX: AGGRESSIVE DEBUGGING & TIMEOUTS ---
-    logger: true,            // Prints all email network traffic to Render logs
-    debug: true,             // Includes raw SMTP connection data
-    connectionTimeout: 5000, // If Google ignores us for 5 seconds, CRASH immediately.
-    socketTimeout: 5000      // Do not wait infinitely for a response.
-    // ------------------------------------------------
+    logger: true,
+    debug: true,
   });
 
   const mailOptions = {
