@@ -1,28 +1,26 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
-  // 1. Create a transporter (the mail delivery service)
-  console.log("Checking Render Variables:");
-  console.log("User:", process.env.EMAIL_USER ? "It exists!" : "IT IS MISSING!");
-  console.log("Pass:", process.env.EMAIL_PASS ? "It exists!" : "IT IS MISSING!");
+  // --- EXPLICIT SMTP CONFIGURATION FOR RENDER ---
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // This forces a strict SSL connection
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
   });
 
-  // 2. Define the email options
   const mailOptions = {
-    from: 'CampusMart Security <noreply@campusmart.com>',
+    // Best practice: Google prefers the 'from' address to match the authenticated user
+    from: `"CampusMart Security" <${process.env.EMAIL_USER}>`, 
     to: options.email,
     subject: options.subject,
     text: options.message,
     html: options.html,
   };
 
-  // 3. Actually send the email
   await transporter.sendMail(mailOptions);
 };
 
