@@ -2,6 +2,9 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
   // 1. Create a transporter (the mail delivery service)
+  console.log("Checking Render Variables:");
+  console.log("User:", process.env.EMAIL_USER ? "It exists!" : "IT IS MISSING!");
+  console.log("Pass:", process.env.EMAIL_PASS ? "It exists!" : "IT IS MISSING!");
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
