@@ -65,8 +65,12 @@ const registerUser = async (req, res) => {
       if (!user.isVerified) await User.findByIdAndDelete(user._id); 
       return res.status(500).json({ message: 'Failed to send verification email. Please try again.' });
     }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (emailError) {
+      // --- ADD THIS LINE ---
+      console.error("🚨 EMAIL SENDING FAILED. REASON:", emailError);
+      // ---------------------
+      if (!user.isVerified) await User.findByIdAndDelete(user._id); 
+      return res.status(500).json({ message: 'Failed to send verification email. Please try again.' });
   }
 };
 
