@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  /* Premium Dark Headers */
+  --color-brand-dark: #09090b;   /* Zinc 950 - Almost pitch black */
+  --color-brand-light: #18181b;  /* Zinc 900 - Sleek contrast */
+  
+  /* Backgrounds */
+  --color-brand-bg: #f4f4f5;     /* Zinc 100 - Expensive, soft gray */
+  
+  /* Primary Actions */
+  --color-brand-action: #000000; /* Pure black buttons */
+  --color-brand-actionHover: #27272a; 
+  
+  /* Accents */
+  --color-brand-link: #2563eb;   /* Cobalt Blue for text/links */
+  --color-brand-accent: #3b82f6; /* Lighter blue for highlights */
+}
+
+body {
+  background-color: var(--color-brand-bg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
