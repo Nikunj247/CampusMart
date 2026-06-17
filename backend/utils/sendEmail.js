@@ -1,30 +1,24 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
+
+// Initialize Resend with your API Key from Render
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (options) => {
-  // --- EXPLICIT SMTP CONFIGURATION FOR RENDER ---
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,             // Changed from 465 to Render-friendly 587
-    secure: false,         // Must be false for port 587
-    requireTLS: true,      // Forces secure encryption even on port 587
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    logger: true,
-    debug: true,
-  });
-
-  const mailOptions = {
-    // Best practice: Google prefers the 'from' address to match the authenticated user
-    from: `"CampusMart Security" <${process.env.EMAIL_USER}>`, 
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-    html: options.html,
-  };
-
-  await transporter.sendMail(mailOptions);
+  try {
+    await resend.emails.send({
+      // On Resend's free tier, you must send from this exact default address
+      from: 'CampusMart <onboarding@resend.dev>', 
+      to: options.email,
+      subject: options.subject,
+      text: options.message,
+      html: options.html || `<p>${options.message}</p>`,
+    });
+    
+    console.log(`✨ OTP Email successfully dispatched via Resend API to ${options.email}`);
+  } catch (error) {
+    console.error("💥 RESEND API CRASH:", error);
+    throw error; // Pass the error back to authController so it can handle it
+  }
 };
 
 module.exports = sendEmail;

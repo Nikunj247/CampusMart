@@ -61,17 +61,10 @@ const registerUser = async (req, res) => {
       });
       res.status(201).json({ message: 'Verification email sent' });
     } catch (emailError) {
-      // Only delete the user if it was a brand new creation that failed
+      console.error("🚨 EMAIL SENDING FAILED. REASON:", emailError);
       if (!user.isVerified) await User.findByIdAndDelete(user._id); 
       return res.status(500).json({ message: 'Failed to send verification email. Please try again.' });
     }
-  } catch (emailError) {
-      // --- ADD THIS LINE ---
-      console.error("🚨 EMAIL SENDING FAILED. REASON:", emailError);
-      // ---------------------
-      if (!user.isVerified) await User.findByIdAndDelete(user._id); 
-      return res.status(500).json({ message: 'Failed to send verification email. Please try again.' });
-  }
 };
 
 // @desc    Authenticate a user
