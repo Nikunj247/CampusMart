@@ -21,6 +21,7 @@ mongoose.connection.once('open', () => {
 });
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Wrap Express with HTTP Server
 const server = http.createServer(app);
