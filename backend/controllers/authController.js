@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
       // If they exist but aren't verified, update their OTP and resend
       user.emailVerificationOtp = otp;
       user.otpExpires = otpExpires;
-      user.name = name; // Update details just in case they made a typo previously
+      user.name = name; 
       user.rollNumber = rollNumber;
       await user.save();
     } else {
@@ -52,7 +52,7 @@ const registerUser = async (req, res) => {
       });
     }
 
-    // 3. DISPATCH EMAIL
+    // 3. DISPATCH EMAIL (VIA RESEND API)
     try {
       await sendEmail({
         email: user.email,
@@ -65,6 +65,10 @@ const registerUser = async (req, res) => {
       if (!user.isVerified) await User.findByIdAndDelete(user._id); 
       return res.status(500).json({ message: 'Failed to send verification email. Please try again.' });
     }
+
+  } catch (error) { // <-- THIS IS LIKELY THE CATCH BLOCK THAT GOT DELETED
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // @desc    Authenticate a user
