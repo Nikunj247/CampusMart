@@ -44,11 +44,14 @@ app.set('io', io);
 
 // Middleware
 app.use(cors({
-  origin: allowedOrigin,
-  credentials: true,
-  optionsSuccessStatus: 200
+  origin: [
+    'http://localhost:5000',
+    'https://thecampusmart.vercel.app',
+    'https://thecampusmart.tech',
+    'https://www.thecampusmart.tech'
+  ],
+  credentials: true
 }));
-app.use(express.json());
 
 // --- API ROUTES ---
 // REMOVED the broken app.use('/api'); line here
