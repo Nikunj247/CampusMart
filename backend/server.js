@@ -53,6 +53,8 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(express.json());
+
 // --- API ROUTES ---
 // REMOVED the broken app.use('/api'); line here
 app.use('/api/auth', require('./routes/authRoutes'));
