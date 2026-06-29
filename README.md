@@ -1,16 +1,26 @@
-# React + Vite
+# CampusMart 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **The safest way to buy, sell, and trade on campus.**  
+> Live Demo: [thecampusmart.tech](https://thecampusmart.tech)
 
-Currently, two official plugins are available:
+CampusMart is a dedicated, zero-trust marketplace built to remove the friction of public trading platforms. Designed exclusively for dtu students, it ensures a secure environment by restricting access solely to verified `@dtu.ac.in` college email addresses.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Key Features
 
-## React Compiler
+* **Zero-Trust Verification:** Automated gateway that blocks non-student emails from registering.
+* **OTP Authentication:** Secure, passwordless email verification powered by the Resend API.
+* **Exclusive Campus Trading:** Buy, sell, and trade textbooks, notes, and technical gear within the university ecosystem.
+* **Optimized Performance:** Fully responsive UI deployed on Vercel with a lightweight REST API backend.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+**Frontend:**
+* React.js
+* Tailwind CSS
+* Deployed on Vercel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Backend:**
+* Node.js & Express.js
+* MongoDB (Mongoose)
+* Resend API
+* Deployed on Render
